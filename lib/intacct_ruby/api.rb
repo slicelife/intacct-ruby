@@ -25,6 +25,7 @@ module IntacctRuby
     def https_request(request, uri)
       @http_gateway ||= Net::HTTP.new uri.host, uri.port
       @http_gateway.use_ssl = true
+      @http_gateway.read_timeout = 120 # seconds
       @http_gateway.request request
     end
   end
