@@ -43,8 +43,8 @@ end
 
 def function_stubs
   @function_stubs ||= %i(function_a function_b).map do |function|
-    mock do
-      stubs(:to_xml).returns("[#{function}]")
+    mock.tap do |m|
+      m.stubs(:to_xml).returns("[#{function}]")
     end
   end
 end
@@ -175,7 +175,7 @@ describe Request do
     end
 
     context 'with no overrides' do
-      before(:all) { generate_request_xml }
+      before { generate_request_xml }
 
       describe 'control block' do
         it 'contains default values' do

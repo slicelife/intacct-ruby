@@ -31,7 +31,7 @@ module IntacctRuby
 
       xml.function controlid: controlid do
         xml.tag!(functionid) do
-          if legacy_end_point? || CU_TYPES.exclude?(@function_type)
+          if legacy_end_point? || !CU_TYPES.include?(@function_type)
             xml << argument_xml(@arguments, to_case: :downcase)
           else
             xml.tag!(@object_type.upcase) do
@@ -65,7 +65,7 @@ module IntacctRuby
 
     def argument_xml(arguments_to_convert, options = {})
       default_options = { to_case: :upcase }
-      options = options.reverse_merge!(default_options)
+      options = default_options.merge(options)
 
       xml = Builder::XmlMarkup.new
 
