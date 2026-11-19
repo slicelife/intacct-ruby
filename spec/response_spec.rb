@@ -10,9 +10,9 @@ describe Response do
   context 'given a 2xx-range response' do
     context 'given successful transactions' do
       let(:response) do
-        mock 'Net::HTTPResponse' do
-          stubs(:body).returns ResponseFactory.generate_success
-          stubs(:value).returns nil
+        mock('Net::HTTPResponse').tap do |m|
+          m.stubs(:body).returns ResponseFactory.generate_success
+          m.stubs(:value).returns nil
         end
       end
 
@@ -35,9 +35,9 @@ describe Response do
         response_body = ResponseFactory.generate_with_errors(function_errors)
 
         let(:response) do
-          mock 'Net::HTTPResponse' do
-            stubs(:value)
-            stubs(:body).returns(response_body)
+          mock('Net::HTTPResponse').tap do |m|
+            m.stubs(:value)
+            m.stubs(:body).returns(response_body)
           end
         end
 
@@ -56,9 +56,9 @@ describe Response do
     exception = StandardError.new('Some HTTP Error')
 
     let(:response) do
-      mock 'Net::HTTPResponse' do
-        stubs(:body)
-        stubs(:value).raises(exception)
+      mock('Net::HTTPResponse').tap do |m|
+        m.stubs(:body)
+        m.stubs(:value).raises(exception)
       end
     end
 
